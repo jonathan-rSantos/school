@@ -15,32 +15,28 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity
-@Table(name = "postagem")
+@Entity // Determina entidade do JPA
+@Table(name = "postagem") // Essa entidade virara uma tabela de nome "postagem"
 public class Postagem {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // VALOR QUE VAI SER GERADO COMO CHAVE ESTRANGEIRA DA CHAVE ID
 	private long id;
-	@NotNull
-	@Size(min = 5, max = 100)
+
+	@NotNull // NÃO PODE SER VAZIO
+	@Size(min = 5, max = 100) // MINIMO DE CARACTER E MAXIMO
 	private String titulo;
+
 	@NotNull
 	@Size(min = 10, max = 500)
 	private String texto;
-	@Temporal(TemporalType.TIMESTAMP)
+
+	@Temporal(TemporalType.TIMESTAMP) // TEMPORAL DETERMINA A HORA QUE A POSTAGEM PASSOU EXATAMENTE
 	private Date data = new java.sql.Date(System.currentTimeMillis());
+
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
-
-	public Tema getTema() {
-		return tema;
-	}
-
-	public void setTema(Tema tema) {
-		this.tema = tema;
-	}
 
 	public long getId() {
 		return id;
@@ -72,6 +68,14 @@ public class Postagem {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 
 }
